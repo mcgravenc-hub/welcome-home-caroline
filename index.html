@@ -1,187 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome Home, Caroline</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surprise Housewarming for Caroline</title>
 
-<style>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7fb;
+      color: #333;
+    }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
-}
+    header {
+      background: linear-gradient(135deg, #6a5acd, #836fff);
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
 
-body{
-background:#fdf8f4;
-color:#444;
-}
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
 
-header{
-background:#f4d8d8;
-padding:60px 20px;
-text-align:center;
-}
+    header p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+    }
 
-header h1{
-font-size:38px;
-color:#7b4f4f;
-}
+    .hero {
+      display: flex;
+      justify-content: center;
+      margin-top: -40px;
+    }
 
-header p{
-margin-top:15px;
-font-size:18px;
-}
+    .hero img {
+      width: 90%;
+      max-width: 600px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
 
-.button{
-display:inline-block;
-margin-top:25px;
-padding:14px 28px;
-background:#7b4f4f;
-color:white;
-text-decoration:none;
-border-radius:30px;
-}
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+    }
 
-section{
-max-width:900px;
-margin:auto;
-padding:50px 20px;
-}
+    .card {
+      background: white;
+      padding: 25px;
+      margin: 20px 0;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
 
-.card{
-background:white;
-padding:25px;
-margin-bottom:20px;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
+    .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      margin-top: 15px;
+      background: #6a5acd;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
 
-h2{
-margin-bottom:15px;
-color:#7b4f4f;
-}
+    .btn:hover {
+      background: #5848c2;
+    }
 
-ul{
-padding-left:20px;
-}
-
-li{
-margin:8px 0;
-}
-
-footer{
-background:#f4d8d8;
-padding:30px;
-text-align:center;
-margin-top:50px;
-}
-
-</style>
-
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
+  <header>
+    <h1>🎉 Surprise Housewarming 🎉</h1>
+    <p>For Caroline — keep it secret 🤫</p>
+  </header>
 
-<h1>🏡 Welcome Home, Caroline</h1>
+  <div class="hero">
+    <img src="IMG-20260625-WA0187.jpg" alt="Housewarming Surprise Image">
+  </div>
 
-<p>
-A new home, a new chapter and beautiful memories waiting to be made.
-</p>
+  <div class="container">
 
-<a class="button" href="#details">
-View Invitation
-</a>
+    <div class="card">
+      <h2>You’re Invited!</h2>
+      <p>
+        Join us as we celebrate a special surprise housewarming for Caroline.
+        Food, laughter, and good vibes guaranteed.
+      </p>
+    </div>
 
-</header>
+    <div class="card">
+      <h2>Date & Time</h2>
+      <p><strong>Coming Soon</strong></p>
+      <p>We will confirm the final date with invited guests privately.</p>
+    </div>
 
-<section id="details">
+    <div class="card">
+      <h2>Location</h2>
+      <p>Private Residence (Details shared upon RSVP)</p>
+    </div>
 
-<div class="card">
+    <div class="card">
+      <h2>RSVP</h2>
+      <p>Please confirm attendance so we can plan accordingly.</p>
+      <a class="btn" href="mailto:your-email@example.com?subject=RSVP%20Housewarming">RSVP via Email</a>
+    </div>
 
-<h2>📅 Event Details</h2>
+  </div>
 
-<p><strong>Date:</strong> Saturday, 11 July 2026</p>
-
-<p><strong>Time:</strong> 14:30 until late</p>
-
-<p><strong>Venue:</strong> Aloes Court 4, Unit 10</p>
-
-<p><strong>Bring:</strong> Your own drinks 🍹</p>
-
-</div>
-
-<div class="card">
-
-<h2>📍 Directions</h2>
-
-<p>Google Maps link will be added before the event.</p>
-
-</div>
-
-<div class="card">
-
-<h2>🎁 Gift Registry</h2>
-
-<ul>
-
-<li>🛏 Blankets / Throws</li>
-<li>🛁 Towels</li>
-<li>🪟 Curtains</li>
-<li>🧀 Charcuterie Board</li>
-<li>🍱 Food Storage Containers</li>
-<li>🍴 Cute Utensils</li>
-<li>🍳 Pots & Pans</li>
-<li>☕ Electric Whisk</li>
-<li>🍞 Bread Bin</li>
-<li>🫙 Sugar / Coffee / Tea Canisters</li>
-<li>🧺 Laundry Basket</li>
-<li>🚿 Bathroom Accessories</li>
-
-</ul>
-
-<p style="margin-top:20px;">
-Please message the organiser to reserve your gift so that duplicate gifts can be avoided.
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>✅ RSVP</h2>
-
-<p>
-Kindly RSVP before the event.
-</p>
-
-<p style="margin-top:15px;">
-(We'll replace this with an online RSVP form shortly.)
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>💌 A Message for Caroline</h2>
-
-<p>
-May your new home always be filled with love, laughter and unforgettable memories.
-</p>
-
-</div>
-
-</section>
-
-<footer>
-
-Made with ❤️ for Caroline's Surprise Housewarming
-
-</footer>
+  <footer>
+    Made with ❤️ for Caroline’s surprise housewarming
+  </footer>
 
 </body>
-
 </html>
