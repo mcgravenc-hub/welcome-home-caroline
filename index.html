@@ -219,23 +219,19 @@ const giftsCol = collection(db,"gifts");
 
 /* INIT GIFTS */
 
-async function initGifts(){
+async function initGifts() {
+  for (const g of gifts) {
+    const ref = doc(db, "gifts", g.toLowerCase().replace(/\s/g, "_"));
+    const snap = await getDoc(ref);
 
-gifts.forEach(async g=>{
-
-const ref = doc(db,"gifts",g.toLowerCase().replace(/
-/g,"_"));
-
-const snap = await getDoc(ref);
-
-if(!snap.exists()){
-
-await setDoc(ref,{name:g,taken:false,takenBy:null});
-
-}
-
-});
-
+    if (!snap.exists()) {
+      await setDoc(ref, {
+        name: g,
+        taken: false,
+        takenBy: null
+      });
+    }
+  }
 }
 
 initGifts();
@@ -258,7 +254,9 @@ const li=document.createElement("li");
 
 if(data.taken){
 
-li.innerText=`${data.name} - Taken by ${data.takenBy}`;
+li.innerText = data.taken
+  ? `${data.name} - Taken by ${data.takenBy || "Unknown"}`
+  : `${data.name} - Available`;
 
 } else {
 
