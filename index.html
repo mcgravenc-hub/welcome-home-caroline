@@ -632,58 +632,41 @@ const ref = doc(db,"gifts","registry");
 
 
 function render(data){
-
 giftList.innerHTML="";
 
-
 gifts.forEach(gift=>{
-
 const li=document.createElement("li");
 
-
 if(data[gift]){
-
-li.innerText=${gift} — Taken by ${data[gift]};
-
-li.style.color="red";
-
+li.innerHTML = `❌ <strong>${gift}</strong> — taken by <em>${data[gift]}</em>`;
+li.style.color="#b00020";
+li.style.cursor="not-allowed";
 } else {
-
-li.innerText=gift;
-
+li.innerHTML = `🟢 <strong>${gift}</strong> — available`;
 li.style.color="green";
-
-li.onclick=()=>reserve(gift);
-
+li.style.cursor="pointer";
+li.onclick = () => reserve(gift);
 }
 
-
 giftList.appendChild(li);
-
 });
-
 }
 
 
 async function reserve(gift){
-
 const name=prompt("Enter your name:");
-
 if(!name)return;
 
-
 const snap=await getDoc(ref);
-
 let data=snap.exists()?snap.data():{};
 
-
-if(data[gift]) return alert("Already taken");
-
+if(data[gift]){
+alert("Sorry, already taken.");
+return;
+}
 
 data[gift]=name;
-
 await setDoc(ref,data);
-
 }
 
 
