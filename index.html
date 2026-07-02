@@ -1,122 +1,83 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Surprise Housewarming for Caroline</title>
 
-
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect" href="https://fonts.gstatic.com"
-crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap"
-rel="stylesheet">
-
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
 <style>
-
 *{margin:0;padding:0;box-sizing:border-box}
-
 html{scroll-behavior:smooth}
-
 body{font-family:Poppins,sans-serif;background:#f5f2ff;color:#222;overflow-x:hidden}
 
-
-
-.hero{height:100vh;background:
-
+/* HERO */
+.hero{
+height:100vh;
+background:
 linear-gradient(rgba(65,38,112,.55),rgba(65,38,112,.75)),
-
 url('IMG-20260625-WA0187.jpg') center/cover;
+display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative
+}
 
-display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative}
-
-
-
-.hero h1{font-family:"Playfair
-Display",serif;font-size:clamp(3rem,8vw,5rem)}
-
+.hero h1{font-family:"Playfair Display",serif;font-size:clamp(3rem,8vw,5rem)}
 .hero p{margin:18px auto;font-size:1.2rem;max-width:700px}
 
-
-
-.btn{display:inline-block;padding:14px
-28px;border-radius:40px;background:#fff;color:#5d3fd3;text-decoration:none;font-weight:700;transition:.3s}
+.btn{
+display:inline-block;
+padding:14px 28px;
+border-radius:40px;
+background:#fff;
+color:#5d3fd3;
+text-decoration:none;
+font-weight:700;
+transition:.3s
+}
 
 .btn:hover{transform:translateY(-4px)}
 
-
-
 section{max-width:1100px;margin:auto;padding:120px 20px 80px}
 
+.glass{
+background:rgba(255,255,255,.75);
+backdrop-filter:blur(14px);
+border-radius:24px;
+padding:30px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+margin-bottom:25px
+}
 
+h2{font-family:"Playfair Display",serif;color:#5d3fd3;margin-bottom:15px}
 
-.glass{background:rgba(255,255,255,.75);backdrop-filter:blur(14px);
-
-border-radius:24px;padding:30px;box-shadow:0 10px 30px
-rgba(0,0,0,.08);margin-bottom:25px}
-
-
-
-h2{font-family:"Playfair
-Display",serif;color:#5d3fd3;margin-bottom:15px}
-
+ul{list-style:none;padding-left:0}
+li{padding:8px 0;cursor:pointer}
 </style>
-
 </head>
-
-
 
 <body>
 
-
-
+<!-- HERO -->
 <section class="hero">
-
 <div>
-
 <h1>🎉 Surprise Housewarming</h1>
-
 <p>For Caroline 🤍</p>
-
 <a class="btn" href="#details">Begin</a>
-
 </div>
-
 </section>
 
-
-
+<!-- DETAILS -->
 <section id="details">
 
-
+<div class="glass">
+<h2>🎁 Gift Registry</h2>
+<ul id="giftList"></ul>
+</div>
 
 <div class="glass">
-
-<h2>🎁 Gift Registry + 💌 Messages (FIXED
-VERSION)</h2>
-
-
-
-<ul id="giftList"></ul>
-
-
-
-<h3>💌 Leave a Message</h3>
-
-
+<h2>💌 Leave a Message</h2>
 
 <input id="msgName" placeholder="Your name"
 style="width:100%;padding:10px;margin:10px 0;">
@@ -124,244 +85,156 @@ style="width:100%;padding:10px;margin:10px 0;">
 <textarea id="msgText" placeholder="Your message"
 style="width:100%;padding:10px;height:100px;"></textarea>
 
+<button class="btn" onclick="sendMessage()">Send</button>
 
-
-<button onclick="sendMessage()"
-class="btn">Send</button>
-
-
-
-<div id="messages"
-style="margin-top:20px;"></div>
-
-
-
+<div id="messages" style="margin-top:20px;"></div>
 </div>
-
-
 
 </section>
 
-
-
+<!-- FIREBASE -->
 <script type="module">
-
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
 
 import {
-
 getFirestore,
-
 collection,
-
 doc,
-
 onSnapshot,
-
 updateDoc,
-
 setDoc,
-
 getDoc,
-
 addDoc,
-
 serverTimestamp,
-
 query,
-
 orderBy
-
-} from
-"https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
-
-
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const firebaseConfig = {
-
 apiKey: "AIzaSyCFIqsJAu-V80TMWPPVad4uhIBKEHmPj38",
-
 authDomain: "caroline-housewarming.firebaseapp.com",
-
 projectId: "caroline-housewarming",
-
 storageBucket: "caroline-housewarming.firebasestorage.app",
-
 messagingSenderId: "380219044687",
-
 appId: "1:380219044687:web:c2672f5ad5eaa6c42b4b3a"
-
 };
 
-
-
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
-
-
-const gifts = ["Toaster","Blender","Hand
-Mixer","Oven Trays"];
-
-
+const gifts = ["Toaster","Blender","Hand Mixer","Oven Trays"];
 
 const giftList = document.getElementById("giftList");
-
-const msgRef = collection(db,"messages");
-
 const msgBox = document.getElementById("messages");
 
+const msgRef = collection(db,"messages");
 const giftsCol = collection(db,"gifts");
 
-
-
 /* INIT GIFTS */
+async function initGifts(){
+for (const g of gifts) {
+const ref = doc(db,"gifts",g.toLowerCase().replace(/\s/g,"_"));
+const snap = await getDoc(ref);
 
-async function initGifts() {
-  for (const g of gifts) {
-    const ref = doc(db, "gifts", g.toLowerCase().replace(/\s/g, "_"));
-    const snap = await getDoc(ref);
-
-    if (!snap.exists()) {
-      await setDoc(ref, {
-        name: g,
-        taken: false,
-        takenBy: null
-      });
-    }
-  }
+if(!snap.exists()){
+await setDoc(ref,{
+name:g,
+taken:false,
+takenBy:null,
+timestamp:null
+});
 }
-
+}
+}
 initGifts();
 
+/* RESERVE GIFT */
+async function reserveGift(id){
+const name = prompt("Your name?");
+if(!name) return;
 
+const ref = doc(db,"gifts",id);
+const snap = await getDoc(ref);
+
+if(snap.data().taken){
+alert("Already taken");
+return;
+}
+
+await updateDoc(ref,{
+taken:true,
+takenBy:name,
+timestamp:Date.now()
+});
+}
 
 /* RENDER GIFTS */
-
-function render(snapshotData){
-
+function render(docs){
 giftList.innerHTML="";
 
-snapshotData.forEach(g=>{
+docs.forEach(d=>{
+const data = d.data();
 
-const data = g.data();
-
-const li=document.createElement("li");
-
-
+const li = document.createElement("li");
 
 if(data.taken){
-
-li.innerText = data.taken
-  ? `${data.name} - Taken by ${data.takenBy || "Unknown"}`
-  : `${data.name} - Available`;
-
+li.textContent = `${data.name} - Taken by ${data.takenBy}`;
+li.style.color = "red";
 } else {
-
-li.innerText=`${data.name} - Available`;
-
-li.onclick=()=>reserveGift(g.id);
-
+li.textContent = `${data.name} - Available`;
+li.style.color = "green";
+li.onclick = () => reserveGift(d.id);
 }
 
 giftList.appendChild(li);
-
 });
-
 }
-
-
-
-async function reserveGift(id){
-
-const name=prompt("Your name?");
-
-if(!name)return;
-
-
-
-const ref=doc(db,"gifts",id);
-
-const snap=await getDoc(ref);
-
-if(snap.data().taken)return alert("Taken");
-
-
-
-await updateDoc(ref,{taken:true,takenBy:name});
-
-}
-
-
-
-/* SEND MESSAGE */
-
-window.sendMessage = async function(){
-
-const name=document.getElementById("msgName").value;
-
-const text=document.getElementById("msgText").value;
-
-
-
-if(!name||!text)return alert("Fill all");
-
-
-
-await addDoc(msgRef,{
-
-name,text,time:serverTimestamp()
-
-});
-
-
-
-document.getElementById("msgText").value="";
-
-};
-
-
-
-/* LISTEN GIFTS */
 
 onSnapshot(giftsCol,(snap)=>{
-
 render(snap.docs);
-
 });
 
+/* SEND MESSAGE */
+window.sendMessage = async function(){
+const name = document.getElementById("msgName").value;
+const text = document.getElementById("msgText").value;
 
+if(!name || !text){
+alert("Please fill both fields");
+return;
+}
 
-/* LISTEN MESSAGES */
+await addDoc(msgRef,{
+name,
+text,
+time:serverTimestamp()
+});
 
-const q=query(msgRef,orderBy("time","desc"));
+document.getElementById("msgText").value="";
+};
 
-
+/* LOAD MESSAGES */
+const q = query(msgRef,orderBy("time","desc"));
 
 onSnapshot(q,(snap)=>{
-
 msgBox.innerHTML="";
 
 snap.forEach(doc=>{
+const m = doc.data();
 
-const m=doc.data();
+const div = document.createElement("div");
+div.style.padding="10px";
+div.style.marginBottom="10px";
+div.style.background="#fff";
+div.style.borderRadius="10px";
+div.style.boxShadow="0 5px 15px rgba(0,0,0,0.05)";
 
-const div=document.createElement("div");
-
-div.innerHTML=`<strong>${m.name}</strong><br>${m.text}`;
+div.innerHTML = `<strong>💜 ${m.name}</strong><br>${m.text}`;
 
 msgBox.appendChild(div);
-
 });
-
 });
-
 </script>
 
-
-
 </body>
-
 </html>
