@@ -496,65 +496,48 @@ const db = getFirestore(app);
 
 
 const gifts = [
-"Toaster","Blender","Hand Mixer","Oven Baking Trays",
-"Cutlery Set","Dinner Set","Bathroom Mats (Set)",
-"Laundry Basket","Couch Cushions","Throw Blanket",
-"Wall Clock","Bed Linen Set"
+"blender",
+"hand_mixer",
+"oven_trays",
+"toaster"
 ];
 
 const giftList = document.getElementById("giftList");
-const ref = doc(db,"gifts","registry");
 
-// CREATE DEFAULT STRUCTURE IF EMPTY
-async function initGifts(){
-const snap = await getDoc(ref);
-
-if(!snap.exists()){
-let empty = {};
-gifts.forEach(g => empty[g] = "");
-await setDoc(ref, empty);
-}
-}
-initGifts();
-
-function render(data){
+function render(snapshot){
 giftList.innerHTML = "";
 
-gifts.forEach(gift=>{
+snapshot.forEach(docSnap => {
+const data = docSnap.data();
+
 const li = document.createElement("li");
 
-if(data[gift]){
-li.innerHTML = `❌ <strong>${gift}</strong> — taken by <em>${data[gift]}</em>`;
-li.style.color="#b00020";
+if(data.taken){
+li.innerHTML = `❌ <strong>${data.name}</strong> — taken by <em>${data.takenBy}</em>`;
+li.style.color = "#b00020";
 } else {
-li.innerHTML = `🟢 <strong>${gift}</strong> — available`;
-li.style.color="green";
-li.onclick = () => reserve(gift);
+li.innerHTML = `🟢 <strong>${data.name}</strong> — available`;
+li.style.color = "green";
+
+li.onclick = async () => {
+const name = prompt("Enter your name:");
+if(!name) return;
+
+const ref = doc(db,"gifts",docSnap.id);
+
+await updateDoc(ref,{
+taken:true,
+takenBy:name,
+timestamp:Date.now()
+});
+};
 }
 
 giftList.appendChild(li);
 });
 }
 
-async function reserve(gift){
-const name = prompt("Enter your name:");
-if(!name) return;
-
-const snap = await getDoc(ref);
-let data = snap.exists() ? snap.data() : {};
-
-if(data[gift]){
-alert("Already taken");
-return;
-}
-
-data[gift] = name;
-await setDoc(ref, data);
-}
-
-onSnapshot(ref,(snap)=>{
-render(snap.exists() ? snap.data() : {});
-});
+onSnapshot(collection(db,"gifts"), render);
 
 <script type="module">
 
