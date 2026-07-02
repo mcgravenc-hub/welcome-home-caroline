@@ -220,18 +220,39 @@ appId: "1:380219044687:web:c2672f5ad5eaa6c42b4b3a"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const gifts=["Toaster","Blender","Hand Mixer","Oven Trays"];
+const gifts = [
+    "Toaster",
+    "Blender",
+    "Hand Mixer",
+    "Oven Baking Trays",
+    "Cutlery Set",
+    "Dinner Set",
+    "Bathroom Mats (Set)",
+    "Laundry Basket",
+    "Couch Cushions",
+    "Throw Blanket",
+    "Wall Clock",
+    "Bed Linen Set"
+];
 
 const giftList=document.getElementById("giftList");
 
-function render(data){
-giftList.innerHTML="";
-gifts.forEach(g=>{
-const li=document.createElement("li");
-li.innerText=data[g]?`${g} - Taken`:g;
-li.onclick=()=>reserve(g);
-giftList.appendChild(li);
-});
+function render(data) {
+  giftList.innerHTML = "";
+
+  gifts.forEach(gift => {
+    const li = document.createElement("li");
+
+    if (data[gift]) {
+      li.classList.add("taken");
+      li.innerText = `${gift} — Taken by ${data[gift]}`;
+    } else {
+      li.innerText = gift;
+      li.onclick = () => reserve(gift);
+    }
+
+    giftList.appendChild(li);
+  });
 }
 
 async function reserve(gift){
