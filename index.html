@@ -136,8 +136,56 @@ padding:14px 24px;border-radius:30px;cursor:pointer;
 <section id="details">
 
 <div class="glass reveal">
-<h2>🤫 It's a Surprise!</h2>
-<p>Please keep this celebration a secret.</p>
+    <h2>💌 Leave Caroline a Message</h2>
+
+    <p>
+        Every message becomes part of Caroline's digital memory book.
+        Leave a few kind words for her to read and treasure forever. ❤️
+    </p>
+
+    <input
+        type="text"
+        id="guestName"
+        placeholder="Your Name"
+        style="width:100%;padding:14px;margin-top:20px;border-radius:12px;border:1px solid #ddd;"
+    >
+
+    <textarea
+        id="guestMessage"
+        placeholder="Write your message here..."
+        rows="5"
+        style="width:100%;padding:14px;margin-top:15px;border-radius:12px;border:1px solid #ddd;"
+    ></textarea>
+
+    <button
+        id="sendMessage"
+        class="btn"
+        style="margin-top:20px;"
+    >
+        ❤️ Send Message
+    </button>
+</div>
+
+<div class="glass reveal">
+
+<h2>💖 Messages from Family & Friends</h2>
+
+<div id="messagesList">
+
+<p>No messages yet.</p>
+
+</div>
+
+</div>
+
+<div class="memory reveal">
+
+<h2>📸 Memories</h2>
+
+<p>
+Photos from the celebration will appear here soon...
+</p>
+
 </div>
 
 <div class="grid">
@@ -205,7 +253,18 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 <!-- FIREBASE -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  onSnapshot,
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -269,6 +328,66 @@ await setDoc(ref,data);
 const ref=doc(db,"gifts","registry");
 onSnapshot(ref,(snap)=>{
 render(snap.exists()?snap.data():{});
+});
+
+    // ===============================
+// 💌 GUEST MESSAGES
+// ===============================
+
+const sendBtn = document.getElementById("sendMessage");
+const messagesList = document.getElementById("messagesList");
+
+sendBtn.addEventListener("click", async () => {
+
+    const name = document.getElementById("guestName").value.trim();
+    const message = document.getElementById("guestMessage").value.trim();
+
+    if (!name || !message) {
+        alert("Please enter your name and a message.");
+        return;
+    }
+
+    await addDoc(collection(db, "messages"), {
+        name,
+        message,
+        created: serverTimestamp()
+    });
+
+    document.getElementById("guestName").value = "";
+    document.getElementById("guestMessage").value = "";
+
+});
+
+const messagesQuery = query(
+    collection(db, "messages"),
+    orderBy("created", "desc")
+);
+
+onSnapshot(messagesQuery, (snapshot) => {
+
+    messagesList.innerHTML = "";
+
+    snapshot.forEach((docSnap) => {
+
+        const data = docSnap.data();
+
+        const card = document.createElement("div");
+
+        card.style.background = "#fff";
+        card.style.padding = "18px";
+        card.style.borderRadius = "16px";
+        card.style.marginBottom = "15px";
+        card.style.boxShadow = "0 8px 20px rgba(0,0,0,.08)";
+
+        card.innerHTML = `
+            <h3 style="margin-bottom:8px;color:#5d3fd3;">💜 ${data.name}</h3>
+            <p>${data.message}</p>
+        `;
+
+        messagesList.appendChild(card);
+
+    });
+
 });
 </script>
 
