@@ -1,388 +1,369 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
 <title>Surprise Housewarming for Caroline</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap"
+rel="stylesheet">
+
+
 
 <style>
+
 *{margin:0;padding:0;box-sizing:border-box}
+
 html{scroll-behavior:smooth}
+
 body{font-family:Poppins,sans-serif;background:#f5f2ff;color:#222;overflow-x:hidden}
 
-/* HERO */
+
+
 .hero{height:100vh;background:
+
 linear-gradient(rgba(65,38,112,.55),rgba(65,38,112,.75)),
+
 url('IMG-20260625-WA0187.jpg') center/cover;
+
 display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative}
 
-.hero h1{font-family:"Playfair Display",serif;font-size:clamp(3rem,8vw,5rem)}
+
+
+.hero h1{font-family:"Playfair
+Display",serif;font-size:clamp(3rem,8vw,5rem)}
+
 .hero p{margin:18px auto;font-size:1.2rem;max-width:700px}
 
-.btn{display:inline-block;padding:14px 28px;border-radius:40px;background:#fff;color:#5d3fd3;text-decoration:none;font-weight:700;transition:.3s}
+
+
+.btn{display:inline-block;padding:14px
+28px;border-radius:40px;background:#fff;color:#5d3fd3;text-decoration:none;font-weight:700;transition:.3s}
+
 .btn:hover{transform:translateY(-4px)}
 
-.scroll{position:absolute;bottom:30px;font-size:2rem;animation:bounce 2s infinite}
-@keyframes bounce{50%{transform:translateY(12px)}}
 
-/* LAYOUT */
+
 section{max-width:1100px;margin:auto;padding:120px 20px 80px}
 
-/* CARDS */
-.glass{
-background:rgba(255,255,255,.75);
-backdrop-filter:blur(14px);
-border-radius:24px;
-padding:30px;
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-margin-bottom:25px;
-transition:.35s;
-}
 
-.glass:hover{transform:translateY(-6px)}
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:20px;
-}
+.glass{background:rgba(255,255,255,.75);backdrop-filter:blur(14px);
 
-.memory{
-padding:60px;
-border:2px dashed #b69cff;
-border-radius:20px;
-text-align:center;
-background:#fff;
-margin-bottom:25px;
-}
+border-radius:24px;padding:30px;box-shadow:0 10px 30px
+rgba(0,0,0,.08);margin-bottom:25px}
 
-/* TEXT */
-h2{font-family:"Playfair Display",serif;color:#5d3fd3;margin-bottom:15px}
-footer{text-align:center;padding:40px;color:#666}
 
-/* ANIMATIONS */
-.reveal{opacity:0;transform:translateY(40px);transition:1s}
-.reveal.show{opacity:1;transform:none}
 
-@keyframes shake {
-0% { transform: translateX(0); }
-25% { transform: translateX(-8px); }
-50% { transform: translateX(8px); }
-75% { transform: translateX(-8px); }
-100% { transform: translateX(0); }
-}
+h2{font-family:"Playfair
+Display",serif;color:#5d3fd3;margin-bottom:15px}
+
 </style>
+
 </head>
+
+
 
 <body>
 
-<!-- REVEAL SCREEN -->
-<div id="revealScreen" style="
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100vh;
-background:linear-gradient(135deg,#fff6f0,#fbeee6);
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-z-index:9999;
-padding:20px;
-transition:0.6s ease;
-">
 
-<h1 style="font-size:2.2rem;color:#5a3e36;margin-bottom:15px;">
-🤫 Can you keep a secret?
-</h1>
 
-<p style="font-size:1.1rem;color:#7a5a50;max-width:500px;margin-bottom:30px;">
-Something special has been prepared for Caroline’s new home...
-</p>
-
-<div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center;">
-
-<button onclick="enterYes()" style="
-background:#d89c7a;color:white;border:none;
-padding:14px 24px;border-radius:30px;cursor:pointer;
-box-shadow:0 8px 20px rgba(0,0,0,0.15);
-">Yes, I promise 🤍</button>
-
-<button onclick="enterNo()" style="
-background:#ccc;color:#333;border:none;
-padding:14px 24px;border-radius:30px;cursor:pointer;
-">No</button>
-
-</div>
-</div>
-
-<!-- HERO -->
 <section class="hero">
+
 <div>
+
 <h1>🎉 Surprise Housewarming</h1>
-<p>For Caroline 🤍<br>A new house. A new chapter. A day filled with love and memories.</p>
-<a class="btn" href="#details">Begin the Journey</a>
+
+<p>For Caroline 🤍</p>
+
+<a class="btn" href="#details">Begin</a>
+
 </div>
-<div class="scroll">⌄</div>
+
 </section>
 
-<!-- DETAILS -->
+
+
 <section id="details">
 
-<div class="glass reveal">
-<h2>🤫 It's a Surprise!</h2>
-<p>Please keep this celebration a secret.</p>
-</div>
 
-<div class="grid">
 
-<div class="glass reveal">
-<h2>📅 Date</h2>
-<p>11 July 2026</p>
-<p><strong>14:30 till late</strong></p>
-</div>
+<div class="glass">
 
-<div class="glass reveal">
-<h2>📲 RSVP</h2>
-<a class="btn" href="https://wa.me/264857128660">Count Me In 🎉</a>
-</div>
+<h2>🎁 Gift Registry + 💌 Messages (FIXED
+VERSION)</h2>
 
-</div>
 
-<div class="glass reveal">
-<h2>💜 A Little Thought</h2>
-<p>Every gift and message helps make this home special.</p>
-</div>
 
-<div class="glass reveal">
-<h2>🎁 Gift Registry</h2>
 <ul id="giftList"></ul>
+
+
+
+<h3>💌 Leave a Message</h3>
+
+
+
+<input id="msgName" placeholder="Your name"
+style="width:100%;padding:10px;margin:10px 0;">
+
+<textarea id="msgText" placeholder="Your message"
+style="width:100%;padding:10px;height:100px;"></textarea>
+
+
+
+<button onclick="sendMessage()"
+class="btn">Send</button>
+
+
+
+<div id="messages"
+style="margin-top:20px;"></div>
+
+
+
 </div>
 
-  <div class="glass reveal">
-<h2>💌 Leave Caroline a Message</h2>
 
-<input id="msgName" placeholder="Your name" style="
-width:100%;padding:10px;margin:10px 0;border-radius:10px;border:1px solid #ccc;
-">
-
-<textarea id="msgText" placeholder="Your message..." style="
-width:100%;padding:10px;height:100px;border-radius:10px;border:1px solid #ccc;
-"></textarea>
-
-<button onclick="sendMessage()" class="btn" style="margin-top:10px;">
-Send Message 💜
-</button>
-
-<div id="messages" style="
-margin-top:20px;
-max-height:300px;
-overflow-y:auto;
-padding:10px;
-border-top:1px solid #eee;
-"></div>
-  </div>
-
-<div class="memory reveal">
-<h2>📸 Memories</h2>
-<p>Photos will appear here after the celebration.</p>
-</div>
 
 </section>
 
-<footer>🏡 Let's make Caroline feel at home 💜</footer>
 
-<!-- REVEAL SCRIPT -->
-<script>
-function enterYes(){
-const screen=document.getElementById("revealScreen");
-screen.style.transform="scale(1.1)";
-screen.style.opacity="0";
-setTimeout(()=>{screen.style.display="none";},600);
-}
 
-function enterNo(){
-const screen=document.getElementById("revealScreen");
-screen.style.animation="shake 0.4s";
-setTimeout(()=>{
-alert("😄 Too late... the surprise already found you.");
-enterYes();
-},500);
-}
-</script>
-
-<!-- INTERSECTION -->
-<script>
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting)e.target.classList.add('show');
-});
-});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-</script>
-
-<!-- FIREBASE -->
 <script type="module">
-import {
-initializeApp
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
 
 import {
+
 getFirestore,
-collection,
-doc,
-onSnapshot,
-updateDoc,
-setDoc,
-getDoc
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-  import {
 collection,
+
+doc,
+
+onSnapshot,
+
+updateDoc,
+
+setDoc,
+
+getDoc,
+
 addDoc,
+
 serverTimestamp,
+
 query,
+
 orderBy
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+} from
+"https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+
 
 const firebaseConfig = {
+
 apiKey: "AIzaSyCFIqsJAu-V80TMWPPVad4uhIBKEHmPj38",
+
 authDomain: "caroline-housewarming.firebaseapp.com",
+
 projectId: "caroline-housewarming",
+
 storageBucket: "caroline-housewarming.firebasestorage.app",
+
 messagingSenderId: "380219044687",
+
 appId: "1:380219044687:web:c2672f5ad5eaa6c42b4b3a"
+
 };
 
+
+
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
 
-const gifts = [
-"Toaster",
-"Blender",
-"Hand Mixer",
-"Oven Trays"
-];
+
+
+const gifts = ["Toaster","Blender","Hand
+Mixer","Oven Trays"];
+
+
 
 const giftList = document.getElementById("giftList");
 
-  const msgRef = collection(db, "messages");
-const msgBox = document.getElementById("messages");
-  
-const giftsCol = collection(db, "gifts");
+const msgRef = collection(db,"messages");
 
-/* 🔥 INITIALIZE GIFTS (runs once safely) */
+const msgBox = document.getElementById("messages");
+
+const giftsCol = collection(db,"gifts");
+
+
+
+/* INIT GIFTS */
+
 async function initGifts(){
-gifts.forEach(async (g) => {
-const ref = doc(db, "gifts", g.toLowerCase().replace(/ /g,"_"));
+
+gifts.forEach(async g=>{
+
+const ref = doc(db,"gifts",g.toLowerCase().replace(/
+/g,"_"));
+
 const snap = await getDoc(ref);
 
 if(!snap.exists()){
-await setDoc(ref, {
-name: g,
-taken: false,
-takenBy: null,
-timestamp: null
-});
+
+await setDoc(ref,{name:g,taken:false,takenBy:null});
+
 }
+
 });
+
 }
+
 initGifts();
 
-/* 💜 RENDER UI */
+
+
+/* RENDER GIFTS */
+
 function render(snapshotData){
-giftList.innerHTML = "";
 
-snapshotData.forEach((gift) => {
-const data = gift.data();
+giftList.innerHTML="";
 
-const li = document.createElement("li");
+snapshotData.forEach(g=>{
+
+const data = g.data();
+
+const li=document.createElement("li");
+
+
 
 if(data.taken){
-li.innerHTML = `❌ ${data.name} - Taken by <strong>${data.takenBy}</strong>`;
-li.style.color = "#b00020";
-li.style.cursor = "not-allowed";
+
+li.innerText=`${data.name} - Taken by ${data.takenBy}`;
+
 } else {
-li.innerHTML = `🟢 ${data.name} - Available`;
-li.style.color = "green";
-li.style.cursor = "pointer";
 
-li.onclick = () => reserveGift(gift.id, data.name);
+li.innerText=`${data.name} - Available`;
+
+li.onclick=()=>reserveGift(g.id);
+
 }
 
-  window.sendMessage = async function () {
-const name = document.getElementById("msgName").value;
-const text = document.getElementById("msgText").value;
-
-if(!name || !text){
-alert("Please fill in both fields");
-return;
-}
-
-await addDoc(msgRef, {
-name,
-text,
-time: serverTimestamp()
-});
-
-document.getElementById("msgText").value = "";
-};
-  
 giftList.appendChild(li);
-});
-}
 
-/* 🎁 RESERVE GIFT */
-async function reserveGift(id, name){
-const user = prompt("Enter your name:");
-if(!user) return;
-
-const ref = doc(db, "gifts", id);
-const snap = await getDoc(ref);
-
-if(snap.data().taken){
-alert("Sorry, already taken.");
-return;
-}
-
-await updateDoc(ref, {
-taken: true,
-takenBy: user,
-timestamp: Date.now()
-});
-}
-
-/* 🔄 REAL-TIME LISTENER */
-onSnapshot(giftsCol, (snapshot) => {
-render(snapshot.docs);
 });
 
-  const q = query(msgRef, orderBy("time", "desc"));
+}
 
-onSnapshot(q, (snapshot) => {
-msgBox.innerHTML = "";
 
-snapshot.forEach((doc) => {
-const m = doc.data();
 
-const div = document.createElement("div");
-div.style.padding = "10px";
-div.style.marginBottom = "10px";
-div.style.background = "#fff";
-div.style.borderRadius = "10px";
-div.style.boxShadow = "0 5px 15px rgba(0,0,0,0.05)";
+async function reserveGift(id){
 
-div.innerHTML = `
-<strong>💜 ${m.name}</strong><br>
-${m.text}
-`;
+const name=prompt("Your name?");
+
+if(!name)return;
+
+
+
+const ref=doc(db,"gifts",id);
+
+const snap=await getDoc(ref);
+
+if(snap.data().taken)return alert("Taken");
+
+
+
+await updateDoc(ref,{taken:true,takenBy:name});
+
+}
+
+
+
+/* SEND MESSAGE */
+
+window.sendMessage = async function(){
+
+const name=document.getElementById("msgName").value;
+
+const text=document.getElementById("msgText").value;
+
+
+
+if(!name||!text)return alert("Fill all");
+
+
+
+await addDoc(msgRef,{
+
+name,text,time:serverTimestamp()
+
+});
+
+
+
+document.getElementById("msgText").value="";
+
+};
+
+
+
+/* LISTEN GIFTS */
+
+onSnapshot(giftsCol,(snap)=>{
+
+render(snap.docs);
+
+});
+
+
+
+/* LISTEN MESSAGES */
+
+const q=query(msgRef,orderBy("time","desc"));
+
+
+
+onSnapshot(q,(snap)=>{
+
+msgBox.innerHTML="";
+
+snap.forEach(doc=>{
+
+const m=doc.data();
+
+const div=document.createElement("div");
+
+div.innerHTML=`<strong>${m.name}</strong><br>${m.text}`;
 
 msgBox.appendChild(div);
+
 });
+
+});
+
 </script>
+
+
+
+</body>
+
+</html>
