@@ -13,128 +13,135 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:Poppins,sans-serif;background:#f5f2ff;color:#222;overflow-x:hidden}
+
+/* HERO */
 .hero{height:100vh;background:
 linear-gradient(rgba(65,38,112,.55),rgba(65,38,112,.75)),
 url('IMG-20260625-WA0187.jpg') center/cover;
 display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative}
+
 .hero h1{font-family:"Playfair Display",serif;font-size:clamp(3rem,8vw,5rem)}
 .hero p{margin:18px auto;font-size:1.2rem;max-width:700px}
+
 .btn{display:inline-block;padding:14px 28px;border-radius:40px;background:#fff;color:#5d3fd3;text-decoration:none;font-weight:700;transition:.3s}
 .btn:hover{transform:translateY(-4px)}
+
 .scroll{position:absolute;bottom:30px;font-size:2rem;animation:bounce 2s infinite}
+@keyframes bounce{50%{transform:translateY(12px)}}
+
+/* LAYOUT */
+section{max-width:1100px;margin:auto;padding:120px 20px 80px}
+
+/* CARDS */
+.glass{
+background:rgba(255,255,255,.75);
+backdrop-filter:blur(14px);
+border-radius:24px;
+padding:30px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+margin-bottom:25px;
+transition:.35s;
+}
+
+.glass:hover{transform:translateY(-6px)}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+}
+
+.memory{
+padding:60px;
+border:2px dashed #b69cff;
+border-radius:20px;
+text-align:center;
+background:#fff;
+margin-bottom:25px;
+}
+
+/* TEXT */
+h2{font-family:"Playfair Display",serif;color:#5d3fd3;margin-bottom:15px}
+footer{text-align:center;padding:40px;color:#666}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(40px);transition:1s}
+.reveal.show{opacity:1;transform:none}
+
 @keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-8px); }
-  50% { transform: translateX(8px); }
-  75% { transform: translateX(-8px); }
-  100% { transform: translateX(0); }
+0% { transform: translateX(0); }
+25% { transform: translateX(-8px); }
+50% { transform: translateX(8px); }
+75% { transform: translateX(-8px); }
+100% { transform: translateX(0); }
 }
 </style>
 </head>
-    <script>
-function enterYes() {
-    const screen = document.getElementById("revealScreen");
 
-    screen.style.transform = "scale(1.1)";
-    screen.style.opacity = "0";
-
-    setTimeout(() => {
-        screen.style.display = "none";
-    }, 600);
-}
-
-function enterNo() {
-    const screen = document.getElementById("revealScreen");
-
-    screen.style.animation = "shake 0.4s";
-
-    setTimeout(() => {
-        alert("😄 Too late... the surprise already found you.");
-        
-        screen.style.transform = "scale(1.05)";
-        
-        setTimeout(() => {
-            enterYes();
-        }, 1200);
-
-    }, 400);
-}
-    </script>
 <body>
 
-<!-- 🌿 Surprise Reveal Screen -->
+<!-- REVEAL SCREEN -->
 <div id="revealScreen" style="
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(135deg, #fff6f0, #fbeee6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 9999;
-    text-align: center;
-    padding: 20px;
-    transition: all 0.6s ease;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:linear-gradient(135deg,#fff6f0,#fbeee6);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+z-index:9999;
+padding:20px;
+transition:0.6s ease;
 ">
 
-    <h1 style="font-size: 2.2rem; color:#5a3e36; margin-bottom:15px;">
-        🤫 Can you keep a secret?
-    </h1>
+<h1 style="font-size:2.2rem;color:#5a3e36;margin-bottom:15px;">
+🤫 Can you keep a secret?
+</h1>
 
-    <p style="font-size:1.1rem; color:#7a5a50; max-width:500px; margin-bottom:30px;">
-        Something special has been prepared for Caroline’s new home...
-    </p>
+<p style="font-size:1.1rem;color:#7a5a50;max-width:500px;margin-bottom:30px;">
+Something special has been prepared for Caroline’s new home...
+</p>
 
-    <div style="display:flex; gap:15px; flex-wrap:wrap; justify-content:center;">
-        
-        <button onclick="enterYes()" style="
-            background:#d89c7a;
-            color:white;
-            border:none;
-            padding:14px 24px;
-            font-size:1rem;
-            border-radius:30px;
-            cursor:pointer;
-            box-shadow:0 8px 20px rgba(0,0,0,0.15);
-        ">
-            Yes, I promise 🤍
-        </button>
+<div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center;">
 
-        <button onclick="enterNo()" style="
-            background:#ccc;
-            color:#333;
-            border:none;
-            padding:14px 24px;
-            font-size:1rem;
-            border-radius:30px;
-            cursor:pointer;
-        ">
-            No
-        </button>
+<button onclick="enterYes()" style="
+background:#d89c7a;color:white;border:none;
+padding:14px 24px;border-radius:30px;cursor:pointer;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+">Yes, I promise 🤍</button>
 
-    </div>
+<button onclick="enterNo()" style="
+background:#ccc;color:#333;border:none;
+padding:14px 24px;border-radius:30px;cursor:pointer;
+">No</button>
 
 </div>
+</div>
 
+<!-- HERO -->
 <section class="hero">
 <div>
 <h1>🎉 Surprise Housewarming</h1>
-<p>For Caroline 🤍<br>A new house. A new chapter. A day filled with laughter, love and unforgettable memories.</p>
+<p>For Caroline 🤍<br>A new house. A new chapter. A day filled with love and memories.</p>
 <a class="btn" href="#details">Begin the Journey</a>
 </div>
 <div class="scroll">⌄</div>
 </section>
 
+<!-- DETAILS -->
 <section id="details">
+
 <div class="glass reveal">
 <h2>🤫 It's a Surprise!</h2>
-<p>Please keep this celebration a secret. We're coming together to welcome Caroline into her beautiful new home.</p>
+<p>Please keep this celebration a secret.</p>
 </div>
 
 <div class="grid">
+
 <div class="glass reveal">
 <h2>📅 Date</h2>
 <p>11 July 2026</p>
@@ -143,129 +150,106 @@ function enterNo() {
 
 <div class="glass reveal">
 <h2>📲 RSVP</h2>
-<p>We'd love to celebrate with you.</p>
-<a class="btn" href="https://wa.me/264857128660?text=Hi%20Lee-Ray!%20I'd%20love%20to%20join%20Caroline's%20surprise%20housewarming!">Count Me In 🎉</a>
+<a class="btn" href="https://wa.me/264857128660">Count Me In 🎉</a>
 </div>
+
 </div>
 
 <div class="glass reveal">
 <h2>💜 A Little Thought</h2>
-<p>Every gift, every smile and every message will help make Caroline's new house feel like home.</p>
+<p>Every gift and message helps make this home special.</p>
 </div>
 
 <div class="glass reveal">
 <h2>🎁 Gift Registry</h2>
-<p>Your existing live Firebase gift registry goes here unchanged. We'll transform it into premium cards in the next step without losing your working database.</p>
 <ul id="giftList"></ul>
-</div>
-
-<div class="glass reveal">
-<h2>💌 Leave Caroline a Little Love</h2>
-<p><strong>Coming in the next update today.</strong><br>This section will save private messages to Firebase so you can read them on the night. ❤️</p>
 </div>
 
 <div class="memory reveal">
 <h2>📸 Memories</h2>
-<p>After the celebration this space will become Caroline's digital scrapbook with photos from the day.</p>
+<p>Photos will appear here after the celebration.</p>
 </div>
+
 </section>
 
-<footer>
-🏡 Let's make Caroline feel at home. 💜
-</footer>
+<footer>🏡 Let's make Caroline feel at home 💜</footer>
 
+<!-- REVEAL SCRIPT -->
+<script>
+function enterYes(){
+const screen=document.getElementById("revealScreen");
+screen.style.transform="scale(1.1)";
+screen.style.opacity="0";
+setTimeout(()=>{screen.style.display="none";},600);
+}
+
+function enterNo(){
+const screen=document.getElementById("revealScreen");
+screen.style.animation="shake 0.4s";
+setTimeout(()=>{
+alert("😄 Too late... the surprise already found you.");
+enterYes();
+},500);
+}
+</script>
+
+<!-- INTERSECTION -->
 <script>
 const observer=new IntersectionObserver(entries=>{
- entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show');});
+entries.forEach(e=>{
+if(e.isIntersecting)e.target.classList.add('show');
+});
 });
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
 
 <!-- FIREBASE -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import {
-    getFirestore,
-    doc,
-    getDoc,
-    setDoc,
-    onSnapshot
-  } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCFIqsJAu-V80TMWPPVad4uhIBKEHmPj38",
-    authDomain: "caroline-housewarming.firebaseapp.com",
-    projectId: "caroline-housewarming",
-    storageBucket: "caroline-housewarming.firebasestorage.app",
-    messagingSenderId: "380219044687",
-    appId: "1:380219044687:web:c2672f5ad5eaa6c42b4b3a",
-    measurementId: "G-6XKET5MSG2"
-  };
+const firebaseConfig = {
+apiKey: "AIzaSyCFIqsJAu-V80TMWPPVad4uhIBKEHmPj38",
+authDomain: "caroline-housewarming.firebaseapp.com",
+projectId: "caroline-housewarming",
+storageBucket: "caroline-housewarming.firebasestorage.app",
+messagingSenderId: "380219044687",
+appId: "1:380219044687:web:c2672f5ad5eaa6c42b4b3a"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-  const gifts = [
-    "Toaster",
-    "Blender",
-    "Hand Mixer",
-    "Oven Baking Trays",
-    "Cutlery Set",
-    "Dinner Set",
-    "Bathroom Mats (Set)",
-    "Laundry Basket",
-    "Couch Cushions",
-    "Throw Blanket",
-    "Wall Clock",
-    "Bed Linen Set"
-  ];
+const gifts=["Toaster","Blender","Hand Mixer","Oven Trays"];
 
-  const giftList = document.getElementById("giftList");
+const giftList=document.getElementById("giftList");
 
-  function render(data) {
-    giftList.innerHTML = "";
+function render(data){
+giftList.innerHTML="";
+gifts.forEach(g=>{
+const li=document.createElement("li");
+li.innerText=data[g]?`${g} - Taken`:g;
+li.onclick=()=>reserve(g);
+giftList.appendChild(li);
+});
+}
 
-    gifts.forEach(gift => {
-      const li = document.createElement("li");
+async function reserve(gift){
+const name=prompt("Enter your name:");
+if(!name)return;
+const ref=doc(db,"gifts","registry");
+const snap=await getDoc(ref);
+let data=snap.exists()?snap.data():{};
+if(data[gift])return alert("Taken");
+data[gift]=name;
+await setDoc(ref,data);
+}
 
-      if (data[gift]) {
-        li.classList.add("taken");
-        li.innerText = `${gift} — Taken by ${data[gift]}`;
-      } else {
-        li.innerText = gift;
-        li.onclick = () => reserve(gift);
-      }
+const ref=doc(db,"gifts","registry");
+onSnapshot(ref,(snap)=>{
+render(snap.exists()?snap.data():{});
+});
+</script>
 
-      giftList.appendChild(li);
-    });
-  }
-
-  async function reserve(gift) {
-    const name = prompt("Enter your name:");
-    if (!name) return;
-
-    const ref = doc(db, "gifts", "registry");
-    const snap = await getDoc(ref);
-
-    let data = snap.exists() ? snap.data() : {};
-
-    if (data[gift]) {
-      alert("Already taken");
-      return;
-    }
-
-    data[gift] = name;
-
-    await setDoc(ref, data);
-  }
-
-  const ref = doc(db, "gifts", "registry");
-
-  onSnapshot(ref, (snap) => {
-    const data = snap.exists() ? snap.data() : {};
-    render(data);
-  });
-
-      </script>
 </body>
 </html>
