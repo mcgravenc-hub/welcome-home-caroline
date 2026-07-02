@@ -205,8 +205,19 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 <!-- FIREBASE -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+import {
+initializeApp
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+doc,
+onSnapshot,
+updateDoc,
+setDoc,
+getDoc
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const firebaseConfig = {
 apiKey: "AIzaSyCFIqsJAu-V80TMWPPVad4uhIBKEHmPj38",
@@ -220,36 +231,82 @@ appId: "1:380219044687:web:c2672f5ad5eaa6c42b4b3a"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const gifts=["Toaster","Blender","Hand Mixer","Oven Trays"];
+const gifts = [
+"Toaster",
+"Blender",
+"Hand Mixer",
+"Oven Trays"
+];
 
-const giftList=document.getElementById("giftList");
+const giftList = document.getElementById("giftList");
 
-function render(data){
-giftList.innerHTML="";
-gifts.forEach(g=>{
-const li=document.createElement("li");
-li.innerText=data[g]?`${g} - Taken`:g;
-li.onclick=()=>reserve(g);
+const giftsCol = collection(db, "gifts");
+
+/* 🔥 INITIALIZE GIFTS (runs once safely) */
+async function initGifts(){
+gifts.forEach(async (g) => {
+const ref = doc(db, "gifts", g.toLowerCase().replace(/ /g,"_"));
+const snap = await getDoc(ref);
+
+if(!snap.exists()){
+await setDoc(ref, {
+name: g,
+taken: false,
+takenBy: null,
+timestamp: null
+});
+}
+});
+}
+initGifts();
+
+/* 💜 RENDER UI */
+function render(snapshotData){
+giftList.innerHTML = "";
+
+snapshotData.forEach((gift) => {
+const data = gift.data();
+
+const li = document.createElement("li");
+
+if(data.taken){
+li.innerHTML = `❌ ${data.name} - Taken by <strong>${data.takenBy}</strong>`;
+li.style.color = "#b00020";
+li.style.cursor = "not-allowed";
+} else {
+li.innerHTML = `🟢 ${data.name} - Available`;
+li.style.color = "green";
+li.style.cursor = "pointer";
+
+li.onclick = () => reserveGift(gift.id, data.name);
+}
+
 giftList.appendChild(li);
 });
 }
 
-async function reserve(gift){
-const name=prompt("Enter your name:");
-if(!name)return;
-const ref=doc(db,"gifts","registry");
-const snap=await getDoc(ref);
-let data=snap.exists()?snap.data():{};
-if(data[gift])return alert("Taken");
-data[gift]=name;
-await setDoc(ref,data);
+/* 🎁 RESERVE GIFT */
+async function reserveGift(id, name){
+const user = prompt("Enter your name:");
+if(!user) return;
+
+const ref = doc(db, "gifts", id);
+const snap = await getDoc(ref);
+
+if(snap.data().taken){
+alert("Sorry, already taken.");
+return;
 }
 
-const ref=doc(db,"gifts","registry");
-onSnapshot(ref,(snap)=>{
-render(snap.exists()?snap.data():{});
+await updateDoc(ref, {
+taken: true,
+takenBy: user,
+timestamp: Date.now()
+});
+}
+
+/* 🔄 REAL-TIME LISTENER */
+onSnapshot(giftsCol, (snapshot) => {
+render(snapshot.docs);
 });
 </script>
-
-</body>
-</html>
