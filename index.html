@@ -15,100 +15,198 @@ html{scroll-behavior:smooth}
 body{font-family:Poppins,sans-serif;background:#f5f2ff;color:#222;overflow-x:hidden}
 
 /* HERO */
-.hero{
-height:100vh;
-background:
+.hero{height:100vh;background:
 linear-gradient(rgba(65,38,112,.55),rgba(65,38,112,.75)),
 url('IMG-20260625-WA0187.jpg') center/cover;
-display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative
-}
+display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative}
 
 .hero h1{font-family:"Playfair Display",serif;font-size:clamp(3rem,8vw,5rem)}
 .hero p{margin:18px auto;font-size:1.2rem;max-width:700px}
 
-.btn{
-display:inline-block;
-padding:14px 28px;
-border-radius:40px;
-background:#fff;
-color:#5d3fd3;
-text-decoration:none;
-font-weight:700;
-transition:.3s
-}
-
+.btn{display:inline-block;padding:14px 28px;border-radius:40px;background:#fff;color:#5d3fd3;text-decoration:none;font-weight:700;transition:.3s}
 .btn:hover{transform:translateY(-4px)}
 
+.scroll{position:absolute;bottom:30px;font-size:2rem;animation:bounce 2s infinite}
+@keyframes bounce{50%{transform:translateY(12px)}}
+
+/* LAYOUT */
 section{max-width:1100px;margin:auto;padding:120px 20px 80px}
 
+/* CARDS */
 .glass{
 background:rgba(255,255,255,.75);
 backdrop-filter:blur(14px);
 border-radius:24px;
 padding:30px;
 box-shadow:0 10px 30px rgba(0,0,0,.08);
-margin-bottom:25px
+margin-bottom:25px;
+transition:.35s;
 }
 
-h2{font-family:"Playfair Display",serif;color:#5d3fd3;margin-bottom:15px}
+.glass:hover{transform:translateY(-6px)}
 
-ul{list-style:none;padding-left:0}
-li{padding:8px 0;cursor:pointer}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+}
+
+.memory{
+padding:60px;
+border:2px dashed #b69cff;
+border-radius:20px;
+text-align:center;
+background:#fff;
+margin-bottom:25px;
+}
+
+/* TEXT */
+h2{font-family:"Playfair Display",serif;color:#5d3fd3;margin-bottom:15px}
+footer{text-align:center;padding:40px;color:#666}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(40px);transition:1s}
+.reveal.show{opacity:1;transform:none}
+
+@keyframes shake {
+0% { transform: translateX(0); }
+25% { transform: translateX(-8px); }
+50% { transform: translateX(8px); }
+75% { transform: translateX(-8px); }
+100% { transform: translateX(0); }
+}
 </style>
 </head>
 
 <body>
 
+<!-- REVEAL SCREEN -->
+<div id="revealScreen" style="
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:linear-gradient(135deg,#fff6f0,#fbeee6);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+z-index:9999;
+padding:20px;
+transition:0.6s ease;
+">
+
+<h1 style="font-size:2.2rem;color:#5a3e36;margin-bottom:15px;">
+🤫 Can you keep a secret?
+</h1>
+
+<p style="font-size:1.1rem;color:#7a5a50;max-width:500px;margin-bottom:30px;">
+Something special has been prepared for Caroline’s new home...
+</p>
+
+<div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center;">
+
+<button onclick="enterYes()" style="
+background:#d89c7a;color:white;border:none;
+padding:14px 24px;border-radius:30px;cursor:pointer;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+">Yes, I promise 🤍</button>
+
+<button onclick="enterNo()" style="
+background:#ccc;color:#333;border:none;
+padding:14px 24px;border-radius:30px;cursor:pointer;
+">No</button>
+
+</div>
+</div>
+
 <!-- HERO -->
 <section class="hero">
 <div>
 <h1>🎉 Surprise Housewarming</h1>
-<p>For Caroline 🤍</p>
-<a class="btn" href="#details">Begin</a>
+<p>For Caroline 🤍<br>A new house. A new chapter. A day filled with love and memories.</p>
+<a class="btn" href="#details">Begin the Journey</a>
 </div>
+<div class="scroll">⌄</div>
 </section>
 
 <!-- DETAILS -->
 <section id="details">
 
-<div class="glass">
+<div class="glass reveal">
+<h2>🤫 It's a Surprise!</h2>
+<p>Please keep this celebration a secret.</p>
+</div>
+
+<div class="grid">
+
+<div class="glass reveal">
+<h2>📅 Date</h2>
+<p>11 July 2026</p>
+<p><strong>14:30 till late</strong></p>
+</div>
+
+<div class="glass reveal">
+<h2>📲 RSVP</h2>
+<a class="btn" href="https://wa.me/264857128660">Count Me In 🎉</a>
+</div>
+
+</div>
+
+<div class="glass reveal">
+<h2>💜 A Little Thought</h2>
+<p>Every gift and message helps make this home special.</p>
+</div>
+
+<div class="glass reveal">
 <h2>🎁 Gift Registry</h2>
 <ul id="giftList"></ul>
 </div>
 
-<div class="glass">
-<h2>💌 Leave a Message</h2>
-
-<input id="msgName" placeholder="Your name"
-style="width:100%;padding:10px;margin:10px 0;">
-
-<textarea id="msgText" placeholder="Your message"
-style="width:100%;padding:10px;height:100px;"></textarea>
-
-<button class="btn" onclick="sendMessage()">Send</button>
-
-<div id="messages" style="margin-top:20px;"></div>
+<div class="memory reveal">
+<h2>📸 Memories</h2>
+<p>Photos will appear here after the celebration.</p>
 </div>
 
 </section>
 
+<footer>🏡 Let's make Caroline feel at home 💜</footer>
+
+<!-- REVEAL SCRIPT -->
+<script>
+function enterYes(){
+const screen=document.getElementById("revealScreen");
+screen.style.transform="scale(1.1)";
+screen.style.opacity="0";
+setTimeout(()=>{screen.style.display="none";},600);
+}
+
+function enterNo(){
+const screen=document.getElementById("revealScreen");
+screen.style.animation="shake 0.4s";
+setTimeout(()=>{
+alert("😄 Too late... the surprise already found you.");
+enterYes();
+},500);
+}
+</script>
+
+<!-- INTERSECTION -->
+<script>
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(e=>{
+if(e.isIntersecting)e.target.classList.add('show');
+});
+});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-doc,
-onSnapshot,
-updateDoc,
-setDoc,
-getDoc,
-addDoc,
-serverTimestamp,
-query,
-orderBy
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const firebaseConfig = {
 apiKey: "AIzaSyCFIqsJAu-V80TMWPPVad4uhIBKEHmPj38",
@@ -122,117 +220,34 @@ appId: "1:380219044687:web:c2672f5ad5eaa6c42b4b3a"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const gifts = ["Toaster","Blender","Hand Mixer","Oven Trays"];
+const gifts=["Toaster","Blender","Hand Mixer","Oven Trays"];
 
-const giftList = document.getElementById("giftList");
-const msgBox = document.getElementById("messages");
+const giftList=document.getElementById("giftList");
 
-const msgRef = collection(db,"messages");
-const giftsCol = collection(db,"gifts");
-
-/* INIT GIFTS */
-async function initGifts(){
-for (const g of gifts) {
-const ref = doc(db,"gifts",g.toLowerCase().replace(/\s/g,"_"));
-const snap = await getDoc(ref);
-
-if(!snap.exists()){
-await setDoc(ref,{
-name:g,
-taken:false,
-takenBy:null,
-timestamp:null
-});
-}
-}
-}
-initGifts();
-
-/* RESERVE GIFT */
-async function reserveGift(id){
-const name = prompt("Your name?");
-if(!name) return;
-
-const ref = doc(db,"gifts",id);
-const snap = await getDoc(ref);
-
-if(snap.data().taken){
-alert("Already taken");
-return;
-}
-
-await updateDoc(ref,{
-taken:true,
-takenBy:name,
-timestamp:Date.now()
-});
-}
-
-/* RENDER GIFTS */
-function render(docs){
+function render(data){
 giftList.innerHTML="";
-
-docs.forEach(d=>{
-const data = d.data();
-
-const li = document.createElement("li");
-
-if(data.taken){
-li.textContent = `${data.name} - Taken by ${data.takenBy}`;
-li.style.color = "red";
-} else {
-li.textContent = `${data.name} - Available`;
-li.style.color = "green";
-li.onclick = () => reserveGift(d.id);
-}
-
+gifts.forEach(g=>{
+const li=document.createElement("li");
+li.innerText=data[g]?`${g} - Taken`:g;
+li.onclick=()=>reserve(g);
 giftList.appendChild(li);
 });
 }
 
-onSnapshot(giftsCol,(snap)=>{
-render(snap.docs);
-});
-
-/* SEND MESSAGE */
-window.sendMessage = async function(){
-const name = document.getElementById("msgName").value;
-const text = document.getElementById("msgText").value;
-
-if(!name || !text){
-alert("Please fill both fields");
-return;
+async function reserve(gift){
+const name=prompt("Enter your name:");
+if(!name)return;
+const ref=doc(db,"gifts","registry");
+const snap=await getDoc(ref);
+let data=snap.exists()?snap.data():{};
+if(data[gift])return alert("Taken");
+data[gift]=name;
+await setDoc(ref,data);
 }
 
-await addDoc(msgRef,{
-name,
-text,
-time:serverTimestamp()
-});
-
-document.getElementById("msgText").value="";
-};
-
-/* LOAD MESSAGES */
-const q = query(msgRef,orderBy("time","desc"));
-
-onSnapshot(q,(snap)=>{
-msgBox.innerHTML="";
-
-snap.forEach(doc=>{
-const m = doc.data();
-
-const div = document.createElement("div");
-div.style.padding="10px";
-div.style.marginBottom="10px";
-div.style.background="#fff";
-div.style.borderRadius="10px";
-div.style.boxShadow="0 5px 15px rgba(0,0,0,0.05)";
-
-div.innerHTML = `<strong>💜 ${m.name}</strong><br>${m.text}`;
-
-msgBox.appendChild(div);
-});
+const ref=doc(db,"gifts","registry");
+onSnapshot(ref,(snap)=>{
+render(snap.exists()?snap.data():{});
 });
 </script>
 
