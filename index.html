@@ -311,85 +311,132 @@ function render(data) {
     }
 
     giftList.appendChild(li);
-  });
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getFirestore,
+doc,
+getDoc,
+setDoc,
+onSnapshot,
+collection,
+addDoc,
+serverTimestamp,
+query,
+orderBy
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyCFIqsJAu-V80TMWPPVad4uhIBKEHmPj38",
+authDomain: "caroline-housewarming.firebaseapp.com",
+projectId: "caroline-housewarming",
+storageBucket: "caroline-housewarming.firebasestorage.app",
+messagingSenderId: "380219044687",
+appId: "1:380219044687:web:c2672f5ad5eaa6c42b4b3a"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* =========================
+   GIFTS
+========================= */
+
+const gifts = [
+"Toaster","Blender","Hand Mixer","Oven Baking Trays",
+"Cutlery Set","Dinner Set","Bathroom Mats (Set)",
+"Laundry Basket","Couch Cushions","Throw Blanket",
+"Wall Clock","Bed Linen Set"
+];
+
+const giftList = document.getElementById("giftList");
+const ref = doc(db,"gifts","registry");
+
+function render(data){
+giftList.innerHTML="";
+
+gifts.forEach(gift=>{
+const li=document.createElement("li");
+
+if(data[gift]){
+li.innerText=`${gift} — Taken by ${data[gift]}`;
+li.style.color="red";
+} else {
+li.innerText=gift;
+li.style.color="green";
+li.onclick=()=>reserve(gift);
+}
+
+giftList.appendChild(li);
+});
 }
 
 async function reserve(gift){
 const name=prompt("Enter your name:");
 if(!name)return;
-const ref=doc(db,"gifts","registry");
+
 const snap=await getDoc(ref);
 let data=snap.exists()?snap.data():{};
-if(data[gift])return alert("Taken");
+
+if(data[gift]) return alert("Already taken");
+
 data[gift]=name;
 await setDoc(ref,data);
 }
 
-const ref=doc(db,"gifts","registry");
 onSnapshot(ref,(snap)=>{
 render(snap.exists()?snap.data():{});
 });
 
-    // ===============================
-// 💌 GUEST MESSAGES
-// ===============================
+/* =========================
+   MESSAGES
+========================= */
 
-const sendBtn = document.getElementById("sendMessage");
-const messagesList = document.getElementById("messagesList");
+const sendBtn=document.getElementById("sendMessage");
+const messagesList=document.getElementById("messagesList");
 
-sendBtn.addEventListener("click", async () => {
+sendBtn.addEventListener("click",async()=>{
 
-    const name = document.getElementById("guestName").value.trim();
-    const message = document.getElementById("guestMessage").value.trim();
+const name=document.getElementById("guestName").value.trim();
+const message=document.getElementById("guestMessage").value.trim();
 
-    if (!name || !message) {
-        alert("Please enter your name and a message.");
-        return;
-    }
+if(!name||!message){
+alert("Please enter name + message");
+return;
+}
 
-    await addDoc(collection(db, "messages"), {
-        name,
-        message,
-        created: serverTimestamp()
-    });
-
-    document.getElementById("guestName").value = "";
-    document.getElementById("guestMessage").value = "";
-
+await addDoc(collection(db,"messages"),{
+name,
+message,
+created:serverTimestamp()
 });
 
-const messagesQuery = query(
-    collection(db, "messages"),
-    orderBy("created", "desc")
+document.getElementById("guestName").value="";
+document.getElementById("guestMessage").value="";
+});
+
+const messagesQuery=query(
+collection(db,"messages"),
+orderBy("created","desc")
 );
 
-onSnapshot(messagesQuery, (snapshot) => {
+onSnapshot(messagesQuery,(snapshot)=>{
+messagesList.innerHTML="";
 
-    messagesList.innerHTML = "";
+snapshot.forEach(docSnap=>{
+const data=docSnap.data();
 
-    snapshot.forEach((docSnap) => {
+const card=document.createElement("div");
+card.style.background="#fff";
+card.style.padding="18px";
+card.style.borderRadius="16px";
+card.style.marginBottom="15px";
+card.style.boxShadow="0 8px 20px rgba(0,0,0,.08)";
 
-        const data = docSnap.data();
+card.innerHTML=`<strong>💜 ${data.name}</strong><br>${data.message}`;
 
-        const card = document.createElement("div");
-
-        card.style.background = "#fff";
-        card.style.padding = "18px";
-        card.style.borderRadius = "16px";
-        card.style.marginBottom = "15px";
-        card.style.boxShadow = "0 8px 20px rgba(0,0,0,.08)";
-
-        card.innerHTML = `
-            <h3 style="margin-bottom:8px;color:#5d3fd3;">💜 ${data.name}</h3>
-            <p>${data.message}</p>
-        `;
-
-        messagesList.appendChild(card);
-
-    });
-
+messagesList.appendChild(card);
+});
 });
 </script>
-
-</body>
-</html>
