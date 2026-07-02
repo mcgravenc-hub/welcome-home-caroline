@@ -710,45 +710,97 @@ document.getElementById("guestMessage").value="";
 
 
 const messagesQuery=query(
+<!-- ===========================
+     FIREBASE
+============================ -->
 
-collection(db,"messages"),
+<script type="module">
 
-orderBy("created","desc")
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
 
-);
+import {
+    getFirestore,
+    collection,
+    doc,
+    updateDoc,
+    onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
+const firebaseConfig = {
+    apiKey: "AIzaSyCFIqsJAu-V80TMWPPVad4uhIBKEHmPj38",
+    authDomain: "caroline-housewarming.firebaseapp.com",
+    projectId: "caroline-housewarming",
+    storageBucket: "caroline-housewarming.firebasestorage.app",
+    messagingSenderId: "380219044687",
+    appId: "1:380219044687:web:c2672f5ad5eaa6c42b4b3a"
+};
 
-onSnapshot(messagesQuery,(snapshot)=>{
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-messagesList.innerHTML="";
+/* ===========================
+   GIFT REGISTRY
+=========================== */
 
+const giftList = document.getElementById("giftList");
 
-snapshot.forEach(docSnap=>{
+onSnapshot(collection(db,"gifts"), (snapshot)=>{
 
-const data=docSnap.data();
+    giftList.innerHTML="";
 
+    snapshot.forEach((giftDoc)=>{
 
-const card=document.createElement("div");
+        const gift = giftDoc.data();
 
-card.style.background="#fff";
+        const li = document.createElement("li");
 
-card.style.padding="18px";
+        li.style.padding="15px";
+        li.style.marginBottom="12px";
+        li.style.listStyle="none";
+        li.style.borderRadius="15px";
+        li.style.background="#ffffff";
+        li.style.boxShadow="0 8px 20px rgba(0,0,0,.08)";
+        li.style.cursor="pointer";
 
-card.style.borderRadius="16px";
+        if(gift.taken){
 
-card.style.marginBottom="15px";
+            li.innerHTML=`
+                <strong>🎁 ${gift.name}</strong><br>
+                ❤️ Reserved by <strong>${gift.takenBy}</strong>
+            `;
 
-card.style.boxShadow="0 8px 20px rgba(0,0,0,.08)";
+            li.style.cursor="default";
+            li.style.opacity=".75";
 
+        }else{
 
-card.innerHTML=<strong&gt;💜 ${data.name}</strong><br>${data.message};
+            li.innerHTML=`
+                <strong>🎁 ${gift.name}</strong><br>
+                🟢 Available
+            `;
 
+            li.onclick=async()=>{
 
-messagesList.appendChild(card);
+                const person=prompt("Your name:");
+
+                if(!person) return;
+
+                await updateDoc(
+                    doc(db,"gifts",giftDoc.id),
+                    {
+                        taken:true,
+                        takenBy:person,
+                        timestamp:Date.now()
+                    }
+                );
+
+            };
+
+        }
+
+        giftList.appendChild(li);
+
+    });
 
 });
-
-});
-
-</script>
 
