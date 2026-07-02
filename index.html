@@ -1,199 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Surprise Housewarming for Caroline</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Surprise Housewarming for Caroline</title>
 
-  <style>
-    body {
-  animation: fadeIn 0.8s ease-in;
-}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-    header {
-  padding: 80px 20px;
-  background: linear-gradient(135deg, #6a5acd, #7b6cff);
-    }
-
-    header h1 {
-  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    }
-
-    header p {
-      margin-top: 10px;
-      font-size: 1.2rem;
-    }
-
-    .hero {
-      display: flex;
-      justify-content: center;
-      margin-top: -40px;
-    }
-
-    .hero img {
-      width: 90%;
-      max-width: 650px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-
-    .container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-  text-align: center;
-}
-
-.card {
-  background: white;
-  padding: 25px;
-  margin: 20px 0;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-}
-
-    .card {
-      background: white;
-      padding: 25px;
-      margin: 20px 0;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 25px;
-      margin-top: 15px;
-      background: #6a5acd;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background: #5848c2;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li {
-  padding: 14px;
-  margin: 10px 0;
-  background: #f7f8fc;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  text-align: left;
-  font-weight: 500;
-}
-
-li:hover {
-  background: #e8ebf7;
-  transform: scale(1.02);
-}
-
-li.taken {
-  background: #ffe5e5;
-  text-decoration: line-through;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-    li:hover {
-      background: #dcdde1;
-    }
-
-    li.taken {
-      background: #ffcccc;
-      text-decoration: line-through;
-      cursor: not-allowed;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #777;
-    }
-  </style>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Poppins,sans-serif;background:#f5f2ff;color:#222;overflow-x:hidden}
+.hero{height:100vh;background:
+linear-gradient(rgba(65,38,112,.55),rgba(65,38,112,.75)),
+url('IMG-20260625-WA0187.jpg') center/cover;
+display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative}
+.hero h1{font-family:"Playfair Display",serif;font-size:clamp(3rem,8vw,5rem)}
+.hero p{margin:18px auto;font-size:1.2rem;max-width:700px}
+.btn{display:inline-block;padding:14px 28px;border-radius:40px;background:#fff;color:#5d3fd3;text-decoration:none;font-weight:700;transition:.3s}
+.btn:hover{transform:translateY(-4px)}
+.scroll{position:absolute;bottom:30px;font-size:2rem;animation:bounce 2s infinite}
+@keyframes bounce{50%{transform:translateY(12px)}}
+section{max-width:1100px;margin:auto;padding:80px 20px}
+.glass{background:rgba(255,255,255,.75);backdrop-filter:blur(14px);border-radius:24px;padding:30px;box-shadow:0 10px 30px rgba(0,0,0,.08);margin-bottom:30px;transition:.35s}
+.glass:hover{transform:translateY(-6px)}
+h2{font-family:"Playfair Display",serif;color:#5d3fd3;margin-bottom:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.memory{padding:60px;border:2px dashed #b69cff;border-radius:20px;text-align:center;background:#fff}
+footer{text-align:center;padding:40px;color:#666}
+.reveal{opacity:0;transform:translateY(40px);transition:1s}
+.reveal.show{opacity:1;transform:none}
+</style>
 </head>
-
 <body>
 
-<header>
-  <h1>🎉 Surprise Housewarming 🎉</h1>
-  <p>For Caroline — SHHH 🤫</p>
-</header>
+<section class="hero">
+<div>
+<h1>🎉 Surprise Housewarming</h1>
+<p>For Caroline 🤍<br>A new house. A new chapter. A day filled with laughter, love and unforgettable memories.</p>
+<a class="btn" href="#details">Begin the Journey</a>
+</div>
+<div class="scroll">⌄</div>
+</section>
 
-<div class="hero">
-  <img src="IMG-20260625-WA0187.jpg" alt="Housewarming Image">
+<section id="details">
+<div class="glass reveal">
+<h2>🤫 It's a Surprise!</h2>
+<p>Please keep this celebration a secret. We're coming together to welcome Caroline into her beautiful new home.</p>
 </div>
 
-<div class="container">
-
-  <!-- EVENT INFO -->
-  <div class="card">
-    <h2>You're Invited</h2>
-    <p>A surprise housewarming celebration for Caroline.</p>
-  </div>
-
-  <!-- DATE -->
-  <div class="card">
-    <h2>📅 Date & Time</h2>
-    <p><strong>Friday, 11 July 2026</strong></p>
-    <p><strong>14:30 (2:30 PM) — Till Late</strong></p>
-  </div>
-
-  <!-- LOCATION -->
-  <div class="card">
-    <h2>📍 Location</h2>
-    <p>Private Residence (Details shared after RSVP)</p>
-  </div>
-
-  <!-- RSVP -->
-  <div class="card">
-    <h2>📲 RSVP</h2>
-    <a class="btn"
-       href="https://wa.me/264857128660?text=Hi%20Lee-Ray,%20I%20confirm%20my%20attendance%20for%20Caroline's%20housewarming"
-       target="_blank">
-      RSVP on WhatsApp
-    </a>
-  </div>
-
-  <!-- GIFTS -->
-  <div class="card">
-    <h2>🎁 Gift Registry</h2>
-    <p>Click a gift to reserve it (live system)</p>
-
-    <ul id="giftList"></ul>
-  </div>
-
+<div class="grid">
+<div class="glass reveal">
+<h2>📅 Date</h2>
+<p>11 July 2026</p>
+<p><strong>14:30 till late</strong></p>
 </div>
+
+<div class="glass reveal">
+<h2>📲 RSVP</h2>
+<p>We'd love to celebrate with you.</p>
+<a class="btn" href="https://wa.me/264857128660?text=Hi%20Lee-Ray!%20I'd%20love%20to%20join%20Caroline's%20surprise%20housewarming!">Count Me In 🎉</a>
+</div>
+</div>
+
+<div class="glass reveal">
+<h2>💜 A Little Thought</h2>
+<p>Every gift, every smile and every message will help make Caroline's new house feel like home.</p>
+</div>
+
+<div class="glass reveal">
+<h2>🎁 Gift Registry</h2>
+<p>Your existing live Firebase gift registry goes here unchanged. We'll transform it into premium cards in the next step without losing your working database.</p>
+<ul id="giftList"></ul>
+</div>
+
+<div class="glass reveal">
+<h2>💌 Leave Caroline a Little Love</h2>
+<p><strong>Coming in the next update today.</strong><br>This section will save private messages to Firebase so you can read them on the night. ❤️</p>
+</div>
+
+<div class="memory reveal">
+<h2>📸 Memories</h2>
+<p>After the celebration this space will become Caroline's digital scrapbook with photos from the day.</p>
+</div>
+</section>
 
 <footer>
-  Made with ❤️ for Caroline
+🏡 Let's make Caroline feel at home. 💜
 </footer>
+
+<script>
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show');});
+});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
 
 <!-- FIREBASE -->
 <script type="module">
